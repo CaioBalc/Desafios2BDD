@@ -28,6 +28,7 @@ class Employees{
         $this->salary = $salary;
     }
 
+    /*
     public function getId(): int{
         return $this->id;
     }
@@ -62,6 +63,24 @@ class Employees{
     public function setSalary(int $salary){
         $this->salary = $salary;
     }
+    */
+
+    public function CreateEmployees(){
+        global $connection;
+        $data = array(
+            'id' => $this->id,
+            'name' => $this->name,
+            'gender' => $this->gender,
+            'age' => $this->age,
+            'salary' => $this->salary
+        );
+        $add = pg_insert($connection, 'funcionarios', $data);
+        if ($add) {
+            echo "Novo registro criado.";
+        } else {
+            echo "Ocorreu um erro ao adicionar o registro.";
+        }
+    }
 
     public function ReadEmployees($result){
         global $connection;
@@ -95,22 +114,41 @@ class Employees{
         }
     }
 
-    public function UpdateEmployees(){
-
+    public function UpdateEmployees($id, $newName, $newGender, $newAge, $newSalary){
+        global $connection;
+        $data = array(
+            'name' => $newName,
+            'gender' => $newGender,
+            'age' => $newAge,
+            'salary' => $newSalary
+        );
+        $upId = array('id' => $id);
+        $up = pg_update($connection, 'funcionarios', $data, $upId);
+        if ($up) {
+            echo "Registro atualizado.";
+        } else {
+            echo "Ocorreu um erro ao atualizar.";
+        }
     }
 
-    public function DeleteEmployees(){
-        
-    }
-
-    public function S(){
-
+    public function DeleteEmployees($id){
+        global $connection;
+        $delId = array('id' => $id);
+        $del = pg_delete($connection, 'funcionarios', $delId);
+        if ($del) {
+            echo "Registro deletado.";
+        } else {
+            echo "Ocorreu um erro ao deletar.";
+        }
     }
 
 }
 
-$employee = new Employees(0, 'Nome', 'Gênero', 0, 0);
+$employee = new Employees(0, 'Name', 'Gender', 0, 0);
 $employee->ReadEmployees($result);
 
-$employee = new Employees(0, 'Nome', 'Gênero', 0, 0);
 $employee->ReadIDEmployee(3);
+
+$employee->UpdateEmployees(0, "name", "gender", 0, 0);
+
+$employee->DeleteEmployees(0);
