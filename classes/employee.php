@@ -4,7 +4,7 @@
 
 $connection = pg_connect("host=postgres port=5432 dbname=postgres user=postgres password=exemplo")or die("Não conectou");
 $result = pg_query($connection, 'SELECT * FROM funcionarios');
-#Verificar se funfa:
+#Verificar a funcionalidade:
 #$tableExists = $db->query("SHOW TABLES LIKE '$table'")->rowCount() > 0;
 $row = pg_num_rows($result);
 
@@ -76,9 +76,9 @@ class Employees{
         );
         $add = pg_insert($connection, 'funcionarios', $data);
         if ($add) {
-            echo "Novo registro criado.";
+            echo "Novo registro criado.<br />";
         } else {
-            echo "Ocorreu um erro ao adicionar o registro.";
+            echo "Ocorreu um erro ao adicionar o registro.<br />";
         }
     }
 
@@ -125,9 +125,9 @@ class Employees{
         $upId = array('id' => $id);
         $up = pg_update($connection, 'funcionarios', $data, $upId);
         if ($up) {
-            echo "Registro atualizado.";
+            echo "Registro atualizado.<br />";
         } else {
-            echo "Ocorreu um erro ao atualizar.";
+            echo "Ocorreu um erro ao atualizar.<br />";
         }
     }
 
@@ -136,9 +136,9 @@ class Employees{
         $delId = array('id' => $id);
         $del = pg_delete($connection, 'funcionarios', $delId);
         if ($del) {
-            echo "Registro deletado.";
+            echo "Registro deletado.<br />";
         } else {
-            echo "Ocorreu um erro ao deletar.";
+            echo "Ocorreu um erro ao deletar.<br />";
         }
     }
 
